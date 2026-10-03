@@ -1,0 +1,20 @@
+services:
+  db_motores:
+    image: mysql:8.0
+    container_name: mysql_telemetria_industria
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "123@Mudar"
+      MYSQL_DATABASE: TelemetriaMotores
+      MYSQL_USER: industria_user
+      MYSQL_PASSWORD: 123@Mudar
+    ports:
+      - "3307:3306"
+    volumes:
+      # Mapeia a pasta local com o SQL para a pasta de inicialização automática do MySQL
+      - ./init-db:/docker-entrypoint-initdb.d
+      # Volume persistente para não perder os dados se o container parar
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
